@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2018 at 02:56 AM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 7.2.5
+-- Generation Time: Apr 08, 2024 at 07:40 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -36,7 +35,7 @@ CREATE TABLE `tblbooknumber` (
   `Author` varchar(90) NOT NULL,
   `PublishDate` date NOT NULL,
   `Publisher` varchar(90) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblbooknumber`
@@ -54,7 +53,9 @@ INSERT INTO `tblbooknumber` (`ID`, `BOOKTITLE`, `QTY`, `Desc`, `Author`, `Publis
 (13, 'the life of june', 2, 'journey', 'unknown', '2016-10-10', 'unknown'),
 (14, 'title', 1, 'book', 'unknown', '2016-10-10', 'unknown'),
 (15, 'sad', 1, 's', 'da', '2018-03-25', 'as'),
-(16, '2wqe', 1, 'wqe', 'wqe', '2018-03-25', 'wqe');
+(16, '2wqe', 1, 'wqe', 'wqe', '2018-03-25', 'wqe'),
+(17, 'Rise of the Titans', 1, 'The history of the Barbarians and Titans', 'Elmarie', '2023-03-12', 'Longhorn'),
+(18, 'Masinde and the Ball', 1, 'A legend', 'JJ wa Masinde', '2024-04-01', 'Longhorny');
 
 -- --------------------------------------------------------
 
@@ -79,7 +80,7 @@ CREATE TABLE `tblbooks` (
   `OverAllQty` int(11) NOT NULL,
   `Donate` tinyint(1) NOT NULL,
   `Remark` varchar(90) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblbooks`
@@ -106,7 +107,9 @@ INSERT INTO `tblbooks` (`BookID`, `AccessionNo`, `BookTitle`, `BookDesc`, `Autho
 (18, '12345670', 'the computerizez system', 'computer', 'un', '2016-10-10', 'unknown', 1, 200, 1, 'Available', 'Fiction', '000', 1, 0, 'Purchased'),
 (19, '12345677', 'life of juan', 'life of juan and jose', 'unknown', '2016-10-10', 'unknown', 10, 0, 1, 'Available', 'Fiction', '900', 1, 0, 'Donate'),
 (20, '117263548', 'book  now', 'book one', 'unknown', '2016-10-10', 'unknown', 8, 0, 1, 'Available', 'Unknown', '700', 1, 0, 'Purchased'),
-(21, '9876547', 'title', 'book', 'unknown', '2016-10-10', 'unknown', 7, 370, 1, 'Available', 'Fiction', '600', 1, 0, 'Purchased');
+(21, '9876547', 'title', 'book', 'unknown', '2016-10-10', 'unknown', 7, 370, 1, 'Available', 'Fiction', '600', 1, 0, 'Purchased'),
+(22, '23292783', 'Rise of the Titans', 'The history of the Barbarians and Titans', 'Elmarie', '2023-03-12', 'Longhorn', 1, 0, 1, 'Not Available', 'Fiction', '000', 1, 0, 'Donate'),
+(23, '13234', 'Masinde and the Ball', 'A legend', 'JJ wa Masinde', '2024-04-01', 'Longhorny', 10, 0, 1, 'Available', 'Unknown', '900', 1, 0, 'Donate');
 
 -- --------------------------------------------------------
 
@@ -125,7 +128,7 @@ CREATE TABLE `tblborrow` (
   `BorrowerId` int(11) NOT NULL,
   `Due` tinyint(1) NOT NULL,
   `Remarks` varchar(90) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblborrow`
@@ -157,7 +160,9 @@ INSERT INTO `tblborrow` (`BorrowId`, `AccessionNo`, `NoCopies`, `DateBorrowed`, 
 (23, '12345673', 1, '2018-02-09 04:03:56', 'Photocopy', 'Returned', '2018-02-09 04:33:56', 123432, 0, 'On Time'),
 (24, '12345673', 1, '2018-03-03 07:13:36', 'Research', 'Returned', '2018-03-03 11:30:00', 921, 0, 'On Time'),
 (25, '1345673', 1, '2018-03-23 19:01:51', 'Overnight', 'Returned', '2018-03-24 19:01:51', 1234, 0, 'Overdue'),
-(26, '1345673', 1, '2018-03-27 01:51:19', 'Research', 'Returned', '2018-03-27 11:30:00', 123432, 0, 'On Time');
+(26, '1345673', 1, '2018-03-27 01:51:19', 'Research', 'Returned', '2018-03-27 11:30:00', 123432, 0, 'On Time'),
+(27, '23292783', 1, '2024-03-13 04:32:16', 'Overnight', 'Borrowed', '2024-03-14 04:32:16', 921, 1, 'Overdue'),
+(28, '12345678', 1, '2024-04-02 00:57:46', 'Overnight', 'Returned', '2024-04-03 00:57:46', 1234, 0, 'On Time');
 
 -- --------------------------------------------------------
 
@@ -179,7 +184,7 @@ CREATE TABLE `tblborrower` (
   `BorrowerType` varchar(35) NOT NULL,
   `Stats` varchar(36) NOT NULL,
   `IMGBLOB` blob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblborrower`
@@ -194,7 +199,8 @@ INSERT INTO `tblborrower` (`IDNO`, `BorrowerId`, `Firstname`, `Lastname`, `Middl
 (6, '4321', 'John Craig', 'Nillos', 'Palacios', 'Dancalan Ilog', 'Male', '1233213123', 'BSIT-1', 'Wonderful-Room-King.jpg', 'Student', 'Active', ''),
 (7, '9213', 'lou', 'velez', 'gotera', 'rizal', 'Female', '0930', 'BSIT', 'Lighthouse.jpg', 'Student', 'NotActive', ''),
 (8, '54321', 'virgel', 'tem', 'brevilla', 'unknown', 'Female', '0930', 'BEED', 'ARIEL 6.jpg', 'Student', 'Active', ''),
-(9, '123432', 'Mark', 'Palacios', 'E', 'Galicia Ilog', 'Male', '09291918272', 'HRM-1', 'Chrysanthemum.jpg', 'Student', 'Active', '');
+(9, '123432', 'Mark', 'Palacios', 'E', 'Galicia Ilog', 'Male', '09291918272', 'HRM-1', 'Chrysanthemum.jpg', 'Student', 'Active', ''),
+(10, '273672', 'Rotich', 'Kibet', 'Asbel', 'nandi', 'Male', '07198192237372737', 'sct211/2022', '', 'Student', 'Active', '');
 
 -- --------------------------------------------------------
 
@@ -206,7 +212,7 @@ CREATE TABLE `tblcategory` (
   `CategoryId` int(11) NOT NULL,
   `Category` varchar(125) NOT NULL,
   `DDecimal` varchar(90) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblcategory`
@@ -223,7 +229,8 @@ INSERT INTO `tblcategory` (`CategoryId`, `Category`, `DDecimal`) VALUES
 (8, 'Arts and Recreation', '700'),
 (9, 'Literature', '800'),
 (10, 'History and Geography', '900'),
-(12, 'ALL', 'ALL');
+(12, 'ALL', 'ALL'),
+(13, 'Fiction', '8000');
 
 -- --------------------------------------------------------
 
@@ -236,7 +243,7 @@ CREATE TABLE `tbllogs` (
   `UserId` int(11) NOT NULL,
   `LogDate` datetime NOT NULL,
   `LogMode` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbllogs`
@@ -724,7 +731,32 @@ INSERT INTO `tbllogs` (`LogId`, `UserId`, `LogDate`, `LogMode`) VALUES
 (479, 3, '2018-08-11 08:45:00', 'Logged in'),
 (480, 3, '2018-08-11 08:46:02', 'Logged out'),
 (481, 3, '2018-08-11 08:52:56', 'Logged in'),
-(482, 3, '2018-08-11 08:54:31', 'Logged out');
+(482, 3, '2018-08-11 08:54:31', 'Logged out'),
+(483, 3, '2024-03-12 04:05:44', 'Logged in'),
+(484, 3, '2024-03-12 04:09:44', 'Logged out'),
+(485, 3, '2024-03-12 13:41:33', 'Logged in'),
+(486, 3, '2024-03-12 13:43:35', 'Logged out'),
+(487, 11, '2024-03-13 02:17:43', 'Logged in'),
+(488, 11, '2024-03-13 02:18:18', 'Logged out'),
+(489, 13, '2024-03-13 04:04:33', 'Logged out'),
+(490, 14, '2024-03-13 04:17:28', 'Logged out'),
+(491, 14, '2024-03-13 04:24:43', 'Logged out'),
+(492, 0, '2024-03-13 04:26:55', 'Logged out'),
+(493, 0, '2024-03-13 04:28:57', 'Logged out'),
+(494, 14, '2024-03-13 04:34:55', 'Logged out'),
+(495, 15, '2024-03-25 11:00:53', 'Logged out'),
+(496, 15, '2024-03-25 12:06:47', 'Logged out'),
+(497, 16, '2024-03-27 02:39:57', 'Logged out'),
+(498, 16, '2024-03-27 02:41:25', 'Logged out'),
+(499, 15, '2024-03-27 02:54:24', 'Logged out'),
+(500, 5, '2024-03-27 03:33:58', 'Logged out'),
+(501, 5, '2024-03-29 06:50:42', 'Logged out'),
+(502, 5, '2024-03-29 07:17:43', 'Logged out'),
+(503, 18, '2024-04-01 21:53:54', 'Logged out'),
+(504, 21, '2024-04-02 00:33:40', 'Logged out'),
+(505, 22, '2024-04-02 00:46:24', 'Logged out'),
+(506, 22, '2024-04-02 00:50:23', 'Logged out'),
+(507, 23, '2024-04-02 01:03:38', 'Logged out');
 
 -- --------------------------------------------------------
 
@@ -740,7 +772,7 @@ CREATE TABLE `tblpayment` (
   `DatePayed` date NOT NULL,
   `BorrowerId` int(11) NOT NULL,
   `Remarks` varchar(125) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblpayment`
@@ -766,7 +798,7 @@ CREATE TABLE `tblreturn` (
   `NoCopies` int(11) NOT NULL,
   `DateReturned` datetime NOT NULL,
   `Remarks` varchar(125) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblreturn`
@@ -798,7 +830,8 @@ INSERT INTO `tblreturn` (`ReturnId`, `BorrowId`, `NoCopies`, `DateReturned`, `Re
 (23, 23, 1, '2018-02-09 04:04:23', 'Returned'),
 (24, 24, 1, '2018-03-26 19:06:39', 'Returned'),
 (25, 1345673, 1, '2018-03-26 19:39:09', 'Returned'),
-(26, 26, 1, '2018-08-07 10:22:26', 'Returned');
+(26, 26, 1, '2018-08-07 10:22:26', 'Returned'),
+(27, 28, 1, '2024-04-02 00:58:34', 'Returned');
 
 -- --------------------------------------------------------
 
@@ -808,26 +841,33 @@ INSERT INTO `tblreturn` (`ReturnId`, `BorrowId`, `NoCopies`, `DateReturned`, `Re
 
 CREATE TABLE `tbluser` (
   `UserId` int(11) NOT NULL,
-  `Fullname` varchar(124) NOT NULL,
-  `User_name` varchar(125) NOT NULL,
-  `Pass` varchar(125) NOT NULL,
+  `Username` varchar(255) DEFAULT NULL,
+  `Email` varchar(255) DEFAULT NULL,
+  `Password` varchar(255) DEFAULT NULL,
   `UserRole` varchar(125) NOT NULL,
   `Status` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbluser`
 --
 
-INSERT INTO `tbluser` (`UserId`, `Fullname`, `User_name`, `Pass`, `UserRole`, `Status`) VALUES
+INSERT INTO `tbluser` (`UserId`, `Username`, `Email`, `Password`, `UserRole`, `Status`) VALUES
 (3, 'Janno Palacios', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Librarian', 'Active'),
-(4, 'Craig', 'librarian', '93c768d0152f72bc8d5e782c0b585acc35fb0442', 'Librarian', 'NotActive'),
-(5, 'sad', 'sad', 'b4914600112ba18af7798b6c1a1363728ae1d96f', 'Librarian', 'NotActive'),
-(6, 'asd', 'sd', '930a0029225aa4c28b8ef095b679285eaae27078', 'Administrator', 'NotActive'),
+(5, 'sad', 'sad', 'sad', 'Librarian', 'NotActive'),
 (7, 'cherry lou velez', 'lou', '15106e6aa53a70c18cb7ee7aa2658c931cd06f69', 'Librarian', 'NotActive'),
 (8, 'velez lou', 'velez', 'fbe2b1ad416b7e3251086de11ad56d27ec6f72a3', 'Librarian', 'Active'),
 (9, 'jom', 'lozada', 'e1b83874fa199b6a53a8334aeebd578fa8064111', 'Assistant', 'Active'),
-(10, 'akon', 'a', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Assistant', 'NotActive');
+(10, 'akon', 'a', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Assistant', 'NotActive'),
+(11, 'marie', 'marie', 'f0fd596f396d8fc32d5e4fe4c73c61fa2ac55c70', 'Librarian', 'Active'),
+(14, 'Eliud', 'eliud', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '', ''),
+(15, 'eliud', 'eliud', '7ab25320624ec42d771610cfa4768ab25fa5a4f19d002bedb7e8b900fa63eedf', '', ''),
+(16, 'rotich kibet', 'hkbkjvy@gmail.com', '7294a15b23f79fb2cbbbc91cc564de9e897c095442b1668307cef1fcf16f17f7', '', 'Active'),
+(17, 'eliud', 'eliud', '013ae0613e13155e099e5ddfa4fb095e9a438f89', 'Librarian', 'Active'),
+(20, 'mainoo', 'mainoo@gmai;.com', 'e6f095e985e6762f1538b47ff1abda58dbe8ce088b16d8a5744fc179e9a2fc16', '', ''),
+(21, 'mainoo', 'mainoo@gmail.com', '890', '', ''),
+(22, 'john', 'john@gmail.com', '1234', '', ''),
+(23, 'johndoe', 'john@gmiil.com', '1234', '', '');
 
 --
 -- Indexes for dumped tables
@@ -896,37 +936,37 @@ ALTER TABLE `tbluser`
 -- AUTO_INCREMENT for table `tblbooknumber`
 --
 ALTER TABLE `tblbooknumber`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tblbooks`
 --
 ALTER TABLE `tblbooks`
-  MODIFY `BookID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `BookID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tblborrow`
 --
 ALTER TABLE `tblborrow`
-  MODIFY `BorrowId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `BorrowId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tblborrower`
 --
 ALTER TABLE `tblborrower`
-  MODIFY `IDNO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `IDNO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tblcategory`
 --
 ALTER TABLE `tblcategory`
-  MODIFY `CategoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `CategoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbllogs`
 --
 ALTER TABLE `tbllogs`
-  MODIFY `LogId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=483;
+  MODIFY `LogId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=508;
 
 --
 -- AUTO_INCREMENT for table `tblpayment`
@@ -938,13 +978,13 @@ ALTER TABLE `tblpayment`
 -- AUTO_INCREMENT for table `tblreturn`
 --
 ALTER TABLE `tblreturn`
-  MODIFY `ReturnId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `ReturnId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tbluser`
 --
 ALTER TABLE `tbluser`
-  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
